@@ -1,9 +1,13 @@
+import 'package:app_comercio/src/domain/models/Users.dart';
+import 'package:app_comercio/src/domain/usecase/auth/AuthUseCases.dart';
 import 'package:app_comercio/src/presentation/page/auth/registro/registroBlocState.dart';
+import 'package:app_comercio/src/utils/Resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-class registroBlocCubit extends Cubit<registroBlocState> {
-  registroBlocCubit() : super(registroInitial());
+class RegistroBlocCubit extends Cubit<registroBlocState> {
+  RegistroBlocCubit(this.authUseCases) : super(registroInitial());
+  AuthUseCases authUseCases;
 
   final _nombreController = BehaviorSubject<String>();
   final _apellidoController = BehaviorSubject<String>();
@@ -12,6 +16,10 @@ class registroBlocCubit extends Cubit<registroBlocState> {
   final _passwordController = BehaviorSubject<String>();
   final _confirmacionPasswordController = BehaviorSubject<String>();
 
+  final _responseController = BehaviorSubject<Resource>();
+
+  final _userController = BehaviorSubject<Users>();
+
   Stream<String> get nombreStream => _nombreController.stream;
   Stream<String> get apellidoStream => _apellidoController.stream;
   Stream<String> get emailStream => _emailController.stream;
@@ -19,6 +27,10 @@ class registroBlocCubit extends Cubit<registroBlocState> {
   Stream<String> get passwordStream => _passwordController.stream;
   Stream<String> get confirmacionPasswordStream =>
       _confirmacionPasswordController.stream;
+
+  Stream<Resource> get responseStream => _responseController;
+
+  Stream<Users> get userStream => _userController;
 
   void changeName(String nombre) {
     if (nombre.isNotEmpty && nombre.length < 2) {
@@ -86,13 +98,24 @@ class registroBlocCubit extends Cubit<registroBlocState> {
       confirmacionPasswordStream,
       (a, b, c, d, e, f) => true);
 
-  void Register() {
+  void Register() async {
     print('Nombre: => ${_nombreController.value}');
     print('Apellido: => ${_apellidoController.value}');
     print('Email: => ${_emailController.value}');
     print('Telefono: => ${_telefonoController.value}');
     print('Password: => ${_passwordController.value}');
     print('ConfirmPassword: => ${_confirmacionPasswordController.value}');
+
+    _responseController.add(Loading());
+
+    print('Email ==> ${_emailController.value}');
+    print('PassWord ==> ${_passwordController.value}');
+
+    Resource response = await authUseCases.registrar.run(_userController.value);
+    _responseController.add(response);
+    Future.delayed(Duration(seconds: 2), () {
+      _responseController.add(Initial());
+    });
   }
 
   void Dispose() {

@@ -15,7 +15,7 @@ class registroPage extends StatefulWidget {
 class _registroPageState extends State<registroPage> {
 //referencia del cubit
 
-  registroBlocCubit? _registroBlocCubit;
+  RegistroBlocCubit? _registroBlocCubit;
 
   void initState() {
     super.initState();
@@ -27,7 +27,7 @@ class _registroPageState extends State<registroPage> {
   @override
   Widget build(BuildContext context) {
     _registroBlocCubit =
-        BlocProvider.of<registroBlocCubit>(context, listen: false);
+        BlocProvider.of<RegistroBlocCubit>(context, listen: false);
 
     return Scaffold(
         body: Container(

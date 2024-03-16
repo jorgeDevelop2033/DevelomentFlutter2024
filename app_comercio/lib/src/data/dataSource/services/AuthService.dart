@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:app_comercio/src/domain/models/AuthResponse.dart';
+import 'package:app_comercio/src/domain/models/Users.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_comercio/src/utils/Resource.dart';
 
 class AuthService {
-  Future<Resource> login(String userName, String password) async {
+  Future<Resource<AuthResponse>> login(String userName, String password) async {
     try {
       Uri url = Uri(
           scheme: 'http',
@@ -29,5 +30,16 @@ class AuthService {
       return Error(e.toString());
     }
     return Error('');
+  }
+
+  Future<Resource<AuthResponse>> register(Users users) async {
+    try {
+      AuthResponse authResponse = AuthResponse(
+          data: users, isSuccess: true, message: 'Existo Registro');
+
+      return Succes(authResponse);
+    } catch (e) {
+      return Error('');
+    }
   }
 }

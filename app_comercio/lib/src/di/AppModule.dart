@@ -3,6 +3,7 @@ import 'package:app_comercio/src/data/dataSource/services/AuthService.dart';
 import 'package:app_comercio/src/domain/repository/AuthRepository.dart';
 import 'package:app_comercio/src/domain/usecase/auth/AuthUseCases.dart';
 import 'package:app_comercio/src/domain/usecase/auth/LoginUseCase.dart';
+import 'package:app_comercio/src/domain/usecase/auth/RegistroUseCase.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -14,6 +15,7 @@ abstract class AppModule {
   AuthRepository get autRepository => AuthRepositoryImpl(authService);
 
   @injectable
-  AuthUseCases get authUseCases =>
-      AuthUseCases(login: LoginUseCase(autRepository));
+  AuthUseCases get authUseCases => AuthUseCases(
+      login: LoginUseCase(autRepository),
+      registrar: RegistroUseCase(autRepository));
 }
