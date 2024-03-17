@@ -8,5 +8,5 @@ class RegistroUseCase {
 
   RegistroUseCase(this.repository);
 
-  run(Users users) => repository.registrar(users);
+  run(Users users, String token) => repository.registrar(users, token);
 }

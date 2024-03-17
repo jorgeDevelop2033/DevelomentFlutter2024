@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Resource<AuthResponse>> registrar(Users users) {
-    return authService.register(users);
+  Future<Resource<AuthResponse>> registrar(Users users, String token) {
+    return authService.register(users, token);
   }
 }

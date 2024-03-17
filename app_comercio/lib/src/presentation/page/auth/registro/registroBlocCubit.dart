@@ -19,6 +19,7 @@ class RegistroBlocCubit extends Cubit<registroBlocState> {
   final _responseController = BehaviorSubject<Resource>();
 
   final _userController = BehaviorSubject<Users>();
+  final _tokenController = BehaviorSubject<String>();
 
   Stream<String> get nombreStream => _nombreController.stream;
   Stream<String> get apellidoStream => _apellidoController.stream;
@@ -31,6 +32,7 @@ class RegistroBlocCubit extends Cubit<registroBlocState> {
   Stream<Resource> get responseStream => _responseController;
 
   Stream<Users> get userStream => _userController;
+  Stream<String> get tokenStream => _tokenController;
 
   void changeName(String nombre) {
     if (nombre.isNotEmpty && nombre.length < 2) {
@@ -111,7 +113,16 @@ class RegistroBlocCubit extends Cubit<registroBlocState> {
     print('Email ==> ${_emailController.value}');
     print('PassWord ==> ${_passwordController.value}');
 
-    Resource response = await authUseCases.registrar.run(_userController.value);
+    var test = Users(
+        userId: 0,
+        firstName: _nombreController.value,
+        lastName: _apellidoController.value,
+        userName: _emailController.value,
+        password: _passwordController.value,
+        token: '',
+        roles: List.empty());
+
+    Resource response = await authUseCases.registrar.run(test, '');
     _responseController.add(response);
     Future.delayed(Duration(seconds: 2), () {
       _responseController.add(Initial());
