@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app_comercio/src/domain/models/AuthResponse.dart';
 import 'package:app_comercio/src/domain/models/Users.dart';

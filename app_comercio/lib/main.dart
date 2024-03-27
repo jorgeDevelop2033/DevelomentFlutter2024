@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: 'login',
         routes: {
-          'login': (BuildContext context) => loginPage(),
-          'registro': (BuildContext context) => registroPage()
+          'login': (BuildContext context) => LoginPage(),
+          'registro': (BuildContext context) => RegistroPage()
         },
       ),
     );

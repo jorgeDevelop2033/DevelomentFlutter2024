@@ -113,7 +113,7 @@ class RegistroBlocCubit extends Cubit<registroBlocState> {
     print('Email ==> ${_emailController.value}');
     print('PassWord ==> ${_passwordController.value}');
 
-    var test = Users(
+    var entityUsers = Users(
         userId: 0,
         firstName: _nombreController.value,
         lastName: _apellidoController.value,
@@ -122,7 +122,7 @@ class RegistroBlocCubit extends Cubit<registroBlocState> {
         token: '',
         roles: List.empty());
 
-    Resource response = await authUseCases.registrar.run(test, '');
+    Resource response = await authUseCases.registrar.run(entityUsers, '');
     _responseController.add(response);
     Future.delayed(Duration(seconds: 2), () {
       _responseController.add(Initial());

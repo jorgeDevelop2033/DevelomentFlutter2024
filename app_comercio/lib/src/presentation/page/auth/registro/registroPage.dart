@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class registroPage extends StatefulWidget {
-  const registroPage({super.key});
+class RegistroPage extends StatefulWidget {
+  const RegistroPage({super.key});
 
   @override
-  State<registroPage> createState() => _registroPageState();
+  State<RegistroPage> createState() => _RegistroPageState();
 }
 
-class _registroPageState extends State<registroPage> {
+class _RegistroPageState extends State<RegistroPage> {
 //referencia del cubit
 
   RegistroBlocCubit? _registroBlocCubit;
